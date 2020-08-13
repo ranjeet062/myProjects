@@ -16,16 +16,16 @@
     
     <bean id="dataSource1" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     	<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
-    	<property name="url" value="jdbc:sqlserver://in2npdvintmt02:1433;databaseName=MS_TEST_SSL"></property>
-    	<property name="username" value="sa"></property>
-    	<property name="password" value="Jda@1234"></property>
+    	<property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=test"></property>
+    	<property name="username" value="xx"></property>
+    	<property name="password" value="xxxx"></property>
     </bean>
     
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
     	<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
-    	<property name="url" value="jdbc:sqlserver://in2npdvintmt02:1433;databaseName=MS_TEST_SSL"></property>
-    	<property name="username" value="sa"></property>
-    	<property name="password" value="Jda@1234"></property>
+    	<property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=test></property>
+    	<property name="username" value="x"></property>
+    	<property name="password" value="xxxx"></property>
     	<property name="initialSize" value="2"></property>
     	<property name="maxActive" value="5"></property>
     </bean>
