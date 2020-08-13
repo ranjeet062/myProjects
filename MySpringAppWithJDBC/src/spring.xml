@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+ -->
+ <!-- <beans default-init-method="myInit" default-destroy-method="myDestroy"> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop = "http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+   
+   
+   <aop:aspectj-autoproxy/>
+    <context:component-scan base-package="com.ranjeet.dao"></context:component-scan>
+    
+    <bean id="dataSource1" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+    	<property name="url" value="jdbc:sqlserver://in2npdvintmt02:1433;databaseName=MS_TEST_SSL"></property>
+    	<property name="username" value="sa"></property>
+    	<property name="password" value="Jda@1234"></property>
+    </bean>
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    	<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+    	<property name="url" value="jdbc:sqlserver://in2npdvintmt02:1433;databaseName=MS_TEST_SSL"></property>
+    	<property name="username" value="sa"></property>
+    	<property name="password" value="Jda@1234"></property>
+    	<property name="initialSize" value="2"></property>
+    	<property name="maxActive" value="5"></property>
+    </bean>
+       
+     <bean id="simpleJdbcDao" class="com.ranjeet.dao.SimpleJdbcDao">
+     	<property name="dataSource" ref="dataSource"></property>
+     
+     </bean>
+     <!-- <bean class="org.springframework.config.java.process.ConfigurationPostProcessor" /> -->
+     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"> -->
+       <property name="dataSource" ref="dataSource"/>
+       <property name="packagesToScan" value="com.ranjeet.model"></property>
+       <property name="hibernateProperties">
+	       <props>
+	           <prop key="dialect">org.hibernate.dialect.SQLServerDialect</prop>
+	           <!-- <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+	       	   <prop key="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</prop>
+  -->
+	       </props>
+       </property>
+       
+       
+     </bean>
+     <!-- <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	    <property name="sessionFactory" ref="sessionFactory"></property>
+	</bean> -->
+</beans>

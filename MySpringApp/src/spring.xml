@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+ -->
+ <!-- <beans default-init-method="myInit" default-destroy-method="myDestroy"> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop = "http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+   
+   
+   <aop:aspectj-autoproxy/>
+    <context:component-scan base-package="com.ranjeet"></context:component-scan>
+       
+        <bean id="parrenttriangle" class="com.ranjeet.Triangle" abstract="true">
+        	<property name="pointA" ref="pointA"></property>
+        	
+        </bean>
+        <bean id="parrenttriangle1" class="com.ranjeet.Triangle" abstract="true">
+        	<property name="points">
+        	<list>
+        		<ref bean="pointA"/>
+        	</list>
+        	</property>
+        	
+        </bean>
+        
+        <bean id="triangle1" class="com.ranjeet.Triangle" parent="parrenttriangle" abstract="true">
+        	<property name="pointB" ref="pointA"></property>
+        	<property name="pointC" ref="pointC"></property>
+        </bean>
+        
+        <bean id="triangle2" class="com.ranjeet.Triangle" parent="parrenttriangle" abstract="true">
+        	<property name="pointB" ref="pointA"></property>
+        </bean>
+        
+        <bean id="triangle3" class="com.ranjeet.Triangle" parent="parrenttriangle1" abstract="true">
+         <property name="points">
+        	<list merge="true">
+        		<ref bean="pointB"/>
+        	</list>
+        	</property>
+        </bean>
+       <!--  <bean id="triangle" class="com.ranjeet.Triangle" name="triangle.name" autowire="byName"> -->
+<!--         <bean id="triangle" class="com.ranjeet.Triangle" name="triangle.name" autowire="byName" scope="singleton" init-method="myInit" destroy-method="myDestroy"> -->
+        <!-- <bean id="triangle" class="com.ranjeet.Triangle" name="triangle.name" autowire="byName" scope="prototype"> -->
+        <!-- <bean id="triangle" class="com.ranjeet.Triangle" name="triangle.name" autowire="byName"> -->
+    	<!-- <property name="type" value="Equilateral"></property> -->
+    	<!-- <constructor-arg type="java.lang.String" value="Equilateral-1"></constructor-arg>
+    	<constructor-arg type="int" value="20"></constructor-arg> 
+    	 constructor-arg index="0" value="Equilateral-1"></constructor-arg>
+    	<constructor-arg index="1" value="20"></constructor-arg> -->
+    	<!-- <property name="pointA" ref="zeroPoint"></property>
+    	<property name="pointA">
+    	    <idref bean="zeroPoint"/>
+    	</property>
+    	<property name="pointB">
+    		<bean id="point2" class="com.ranjeet.Point">
+		    	<property name="x" value="-20"></property>
+		    	<property name="y" value="0"></property>
+		    </bean>
+    	</property>
+    	<property name="pointC" ref="point3"></property> -->
+    	<!-- <property name="points">
+    		<list>
+    			<ref bean="zeroPoint"/>
+    			<ref bean="point3"/>
+    		</list>
+    	</property> -->
+    <!-- </bean> -->
+    
+    <!-- <bean id="zeroPoint" class="com.ranjeet.Point">
+    	<property name="x" value="0"></property>
+    	<property name="y" value="0"></property>
+    </bean>
+    
+     <bean id="point2" class="com.ranjeet.Point">
+    	<property name="x" value="0"></property>
+    	<property name="y" value="0"></property>
+    </bean>
+    
+     <bean id="point3" class="com.ranjeet.Point">
+    	<property name="x" value="20"></property>
+    	<property name="y" value="0"></property>
+    </bean> -->
+    
+    <bean id="pointA" class="com.ranjeet.Point">
+    	<!-- <property name="x" value="0"></property>
+    	<property name="y" value="0"></property> -->
+    	<property name="x" value="${poiontA.pointx}"></property>
+    	<property name="y" value="${poiontA.pointy}"></property>
+    </bean>
+    
+    <bean id="center" class="com.ranjeet.Point">
+    	<!-- <property name="x" value="0"></property>
+    	<property name="y" value="0"></property> -->
+    	<property name="x" value="${poiontA.pointx}"></property>
+    	<property name="y" value="${poiontA.pointy}"></property>
+    </bean>
+    
+     <!-- <bean id="pointB" class="com.ranjeet.Point">
+    	<property name="x" value="-20"></property>
+    	<property name="y" value="0"></property>
+    </bean>
+    -->
+     <bean id="pointC" class="com.ranjeet.Point">
+        <qualifier value="CircleRelated"></qualifier>
+    	<property name="x" value="20"></property>
+    	<property name="y" value="0"></property>
+    </bean> 
+    
+    
+    <alias name="triangle" alias="triangle-alias"/>
+    
+   <!--  <bean class="com.ranjeet.DispayNameBeanPostProcessor"></bean>
+    <bean class="com.ranjeet.MyBeanFactoryPostProcessor"></bean> -->
+    
+    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"></bean>
+    
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations" value="pointsconfig.properties"></property>
+    </bean>
+    <!-- <bean id="circle" class="com.ranjeet.Circle">
+    	<property name="center" ref="pointA"></property>
+    </bean> -->
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+	<context:annotation-config/>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>mymessages</value>
+			</list>
+		</property>
+	</bean>
+	<bean id = "animal" class="com.ranjeet.Animal">
+		<property name="name" value="Tiger"></property>
+	</bean>
+	<bean id = "human" class="com.ranjeet.HumanBeing">
+		<property name="name" value="Man"></property>
+	</bean>
+	<bean id="shapeService" class="com.ranjeet.ShapeService" autowire="byType"></bean>
+	<!-- <bean id="animalService" class="com.ranjeet.AnimalService" autowire="byName">
+		<property name="animal" ref="animal"></property>
+	</bean> -->
+
+	<bean id="logginAspect" class="com.ranjeet.aspect.LogginAspect"></bean>
+	<bean id="loggin2Aspect" class="com.ranjeet.aspect.Loggin2Aspect"></bean>
+	
+	<aop:config>
+		<aop:aspect id="loggin" ref="loggin2Aspect">
+			<aop:pointcut expression="execution(* get*())" id="allGetter"/>
+			<aop:around method="myAdvice" pointcut-ref="allGetter"/>
+		</aop:aspect>
+	
+	</aop:config>
+</beans>

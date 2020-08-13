@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+ 
+<hibernate-configuration>
+    <session-factory>
+        <!-- SQL Dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+ 
+        <!-- Database Connection Settings -->
+        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=test</property>
+        <property name="hibernate.connection.username">test</property>
+        <property name="hibernate.connection.password">xxxx</property>
+        <property name="show_sql">true</property>
+        
+        <property name="hbm2ddl.auto">update</property>
+ 
+ 		<!-- <property name="cache.use_second_level_cache">true</property> -->
+ 		<!-- property name="hibernate.cache.region.factory_class">
+         net.sf.ehcache.hibernate.EhCacheRegionFactory</property> -->
+         <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+         <property name="hibernate.cache.use_query_cache">true</property>
+         <property name="hibernate.cache.use_second_level_cache">true</property>
+ 		<!-- <property name="cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</property>
+ 	    <property name="cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property> -->
+        <!-- Specifying Session Context -->
+        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+ 
+        <!-- Mapping With Model Class Containing Annotations -->
+        <mapping class="com.ranjeet.gupta.User" />
+        <!-- <mapping class="com.ranjeet.gupta.Address" />
+        <mapping class="com.ranjeet.gupta.LoginName" /> 
+        <mapping class="com.ranjeet.gupta.Vehical" />
+        <mapping class="com.ranjeet.gupta.TwoWheeler" />
+        <mapping class="com.ranjeet.gupta.FourWheeler" />-->
+    </session-factory>
+</hibernate-configuration>
