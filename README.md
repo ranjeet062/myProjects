@@ -1,5 +1,9 @@
 # Myproject
 Project contains very basic exercise
+
+##Algorithms
+This has some algorithms. 
+
 ##MyHibernateApp
 This is very basic/Simple hibernate project, add the DB details in src/main/resources/spring.xml and play around
 
