@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: kafka-blob-buffer
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: ${KAFKA_GROUP_ID:kafka-blob-buffer}
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      properties:
+        isolation.level: read_committed
+    listener:
+      ack-mode: manual
+      type: single
+  elasticsearch:
+    uris: ${ELASTICSEARCH_URIS:http://localhost:9200}
+
+app:
+  kafka:
+    topic: ${KAFKA_TOPIC:payload-topic}
+    concurrency: ${KAFKA_CONCURRENCY:3}
+  buffer:
+    max-bytes: ${BUFFER_MAX_BYTES:20971520}
+    max-age: ${BUFFER_MAX_AGE:60s}
+    payload-type-header: ${PAYLOAD_TYPE_HEADER:payloadType}
+  blob:
+    connection-string: ${AZURE_STORAGE_CONNECTION_STRING:UseDevelopmentStorage=true}
+    container-name: ${AZURE_STORAGE_CONTAINER:kafka-payload-chunks}
+  elasticsearch:
+    index-name: ${ELASTICSEARCH_INDEX:kafka-payload-chunk-metadata}
